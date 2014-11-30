@@ -145,15 +145,15 @@ $ libsnappy.<span class="keyword">a</span>  libsnappy.<span class="keyword">la</
 <li>hadoop<ol>
 <li>把hadoop-snappy/target/hadoop-snappy-0.0.1-SNAPSHOT目录中lib目录下所有文件拷贝到Hadoop的lib目录下<pre><code> cp -r hadoop-snappy-0.0.1-SNAPSHOT/lib/<span class="keyword">*</span> <span class="variable">&lt;HADOOP_HOME&gt;</span>/lib
 </code></pre></li>
-<li>修改Hadoop配置文件，core-site.xml，添加如下内容<pre><code> &amp;<span class="keyword">lt</span>;property&gt;
-     &amp;<span class="keyword">lt</span>;name&gt;io.compression.codecs&amp;<span class="keyword">lt</span>;/name&gt;
-     &amp;<span class="keyword">lt</span>;value&gt;
-         org.apache.hadoop.io.compress.GzipCodec,
-         org.apache.hadoop.io.compress.DefaultCodec,
-         org.apache.hadoop.io.compress.BZip2Codec,
-         org.apache.hadoop.io.compress.SnappyCodec
-     &amp;<span class="keyword">lt</span>;/value&gt;
- &amp;<span class="keyword">lt</span>;/property&gt;
+<li>修改Hadoop配置文件，core-site.xml，添加如下内容        <pre><code> \&lt;property&gt;
+     \&lt;name&gt;io.compression.codecs&amp;lt;/name&gt;
+     \&lt;<span class="built_in">value</span>&gt;
+         org.apache.hadoop.io.<span class="built_in">compress</span>.GzipCodec,
+         org.apache.hadoop.io.<span class="built_in">compress</span>.DefaultCodec,
+         org.apache.hadoop.io.<span class="built_in">compress</span>.BZip2Codec,
+         org.apache.hadoop.io.<span class="built_in">compress</span>.SnappyCodec
+     \&lt;/<span class="built_in">value</span>&gt;
+ \&lt;/property&gt;
 </code></pre></li>
 <li>修改Hadoop配置文件，hadoop-env.sh<pre><code> export <span class="constant">LD_LIBRARY_PATH</span>=<span class="variable">$LD_LIBRARY_PATH</span><span class="symbol">:</span><span class="variable">$HADOOP_HOME</span>/lib/native/<span class="constant">Linux</span>-amd64-<span class="number">64</span>/<span class="symbol">:/usr/local/lib/</span>
 </code></pre></li>
