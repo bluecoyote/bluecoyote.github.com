@@ -91,7 +91,7 @@
 <blockquote>
 <ul>
 <li>下载maven安装包(apache-maven-xxx.bin.tar.gz) <a href="http://maven.apache.org/download.cgi" target="_blank" rel="external">点击下载</a></li>
-<li>解压文件<br><code>ar -zxvf apache-maven-3.2.1-bin.tar.gz</code></li>
+<li>解压文件<br><code>tar -zxvf apache-maven-3.2.1-bin.tar.gz</code></li>
 <li>修改/etc/profile，把maven执行路径添加到环境变量<pre><code><span class="keyword">export</span> MVN_HOME=/home/qiao/apache-maven-<span class="number">3.2</span>.<span class="number">1</span>
 <span class="keyword">export</span> PATH=<span class="variable">$MVN_HOME</span>/bin:<span class="variable">$PATH</span>
 </code></pre></li>
@@ -122,19 +122,22 @@ $ libsnappy.<span class="keyword">a</span>  libsnappy.<span class="keyword">la</
 </code></pre></li>
 <li>安装hadoop-snappy,用maven编译安装,将其安装到/usr/local目录中<pre><code>mvn <span class="built_in">package</span> -Dsnappy.prefix=/usr/<span class="keyword">local</span>
 </code></pre></li>
-<li>接下来就是复制文件，修改配置文件<ul>
-<li>hadoop<ol>
+<li><p>接下来就是复制文件，修改配置文件</p>
+<ul>
+<li><p>hadoop</p>
+<ol>
 <li>把hadoop-snappy/target/hadoop-snappy-0.0.1-SNAPSHOT目录中lib目录下所有文件拷贝到Hadoop的lib目录下<pre><code> cp -r hadoop-snappy-0.0.1-SNAPSHOT/lib/<span class="keyword">*</span> <span class="variable">&lt;HADOOP_HOME&gt;</span>/lib
 </code></pre></li>
-<li>修改Hadoop配置文件，core-site.xml，添加如下内容        <pre><code> \&lt;property&gt;
-     \&lt;name&gt;io.compression.codecs&amp;lt;/name&gt;
-     \&lt;<span class="built_in">value</span>&gt;
-         org.apache.hadoop.io.<span class="built_in">compress</span>.GzipCodec,
-         org.apache.hadoop.io.<span class="built_in">compress</span>.DefaultCodec,
-         org.apache.hadoop.io.<span class="built_in">compress</span>.BZip2Codec,
-         org.apache.hadoop.io.<span class="built_in">compress</span>.SnappyCodec
-     \&lt;/<span class="built_in">value</span>&gt;
- \&lt;/property&gt;
+<li><p>修改Hadoop配置文件，core-site.xml，添加如下内容 </p>
+<pre><code> \<span class="tag">&lt;<span class="title">property</span>&gt;</span>
+     \<span class="tag">&lt;<span class="title">name</span>&gt;</span>io.compression.codecs\<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
+     \<span class="tag">&lt;<span class="title">value</span>&gt;</span>
+         org.apache.hadoop.io.compress.GzipCodec,
+         org.apache.hadoop.io.compress.DefaultCodec,
+         org.apache.hadoop.io.compress.BZip2Codec,
+         org.apache.hadoop.io.compress.SnappyCodec
+     \<span class="tag">&lt;/<span class="title">value</span>&gt;</span>
+ \<span class="tag">&lt;/<span class="title">property</span>&gt;</span>
 </code></pre></li>
 <li>修改Hadoop配置文件，hadoop-env.sh<pre><code> export <span class="constant">LD_LIBRARY_PATH</span>=<span class="variable">$LD_LIBRARY_PATH</span><span class="symbol">:</span><span class="variable">$HADOOP_HOME</span>/lib/native/<span class="constant">Linux</span>-amd64-<span class="number">64</span>/<span class="symbol">:/usr/local/lib/</span>
 </code></pre></li>
