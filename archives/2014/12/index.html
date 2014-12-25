@@ -3,20 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | github blog</title>
+  <title>Archives: 2014/12 | github blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in trobuleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2014/11/30/hello-world/">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="github blog">
+<meta property="og:url" content="http://yoursite.com/archives/2014/12/">
 <meta property="og:site_name" content="github blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in trobuleshooting or you can ask me on GitHub.
-Quick">
+<meta property="og:description">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in trobuleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="github blog">
+<meta name="twitter:description">
 
   
     <link rel="alternative" href="/atom.xml" title="github blog" type="application/atom+xml">
@@ -64,10 +61,12 @@ Quick">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main">
+  
+    <article id="post-query-hbase-use-drill-jdbc-api" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/11/30/hello-world/" class="article-date">
-  <time datetime="2014-11-30T09:08:34.000Z" itemprop="datePublished">11月 30 2014</time>
+    <a href="/2014/12/25/query-hbase-use-drill-jdbc-api/" class="article-date">
+  <time datetime="2014-12-25T09:00:07.000Z" itemprop="datePublished">12月 25 2014</time>
 </a>
     
   </div>
@@ -77,8 +76,8 @@ Quick">
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      Hello World
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/12/25/query-hbase-use-drill-jdbc-api/">query-hbase-use-drill-jdbc-api</a>
     </h1>
   
 
@@ -86,52 +85,34 @@ Quick">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2>
-<h3 id="Create_a_new_post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+        <p>drill 提供了sqlline的命令行查询，同时也提供了jdbc接口。<br>今天在CentOS 6.5上在eclipse环境下试用了其jdbc API。</p>
+<p>条件准备：jdk 1.7.71，HBase伪分布模式（local／embeded 模式不会启动zookeeper，客户端无法建立到drill的连接）</p>
+<pre><code>    Class.forName(<span class="string">"org.apache.drill.jdbc.Driver"</span>);
+    DrillConnection conn = (DrillConnection) DriverManager.getConnection(<span class="string">"jdbc:drill:zk=localhost:2181"</span>, <span class="string">"admin"</span>, <span class="string">"admin"</span>);
+    <span class="comment">//DrillStatement ds = (DrillStatement) conn.createStatement();</span>
+    DrillResultSet <span class="keyword">set</span> = (DrillResultSet) ds.executeQuery(<span class="string">"select * from hbase.students"</span>);
+    DrillResultSet <span class="keyword">set</span> = (DrillResultSet) ds.executeQuery(<span class="string">" SELECT CAST(students.row_key as VarChar(20)), CAST(students.account.name as VarChar(20)), CAST (students.address.state as VarChar(20)), CAST (students.address.street as VarChar(20)), CAST (students.address.zipcode as VarChar(20)) FROM hbase.students"</span>);
 
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+<span class="keyword">while</span>(<span class="keyword">set</span>.next()){
+        System.<span class="keyword">out</span>.println(<span class="keyword">set</span>.getRow()+<span class="string">"-"</span>+<span class="keyword">set</span>.getString(<span class="number">1</span>)+<span class="string">"-"</span>+<span class="keyword">set</span>.getString(<span class="number">2</span>)+<span class="string">"-"</span>+<span class="keyword">set</span>.getString(<span class="number">3</span>)+<span class="string">"-"</span>+<span class="keyword">set</span>.getString(<span class="number">4</span>)+<span class="string">"-"</span>+<span class="keyword">set</span>.getString(<span class="number">5</span>));
+}
+    ...
+</code></pre><p>至此，即可通过Java客户端访问drill，进行对HBase的查询。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/11/30/hello-world/" data-id="7g0k62k3uposlinc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2014/12/25/query-hbase-use-drill-jdbc-api/" data-id="mderby0x0af5u10h" class="article-share-link">Share</a>
       
       
     </footer>
   </div>
   
-    
-<nav id="article-nav">
-  
-    <a href="/2014/11/30/install-snappy-on-Hadoop-Hbase/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          install snappy on Hadoop/Hbase
-        
-      </div>
-    </a>
-  
-  
-</nav>
-
-  
 </article>
 
+
+  
+  
 </section>
         
           <aside id="sidebar">
